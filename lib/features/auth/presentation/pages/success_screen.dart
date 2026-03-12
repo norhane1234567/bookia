@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/widgets/main_button.dart';
@@ -19,14 +20,13 @@ class SuccessScreen extends StatelessWidget {
             children: [
 
               
-              Image.asset(
-                "assets/images/successmark.png",
+              SvgPicture.asset(
+                "assets/images/Successmark.svg",
                 height: 120,
               ),
 
               const SizedBox(height: 30),
 
-             
               Text(
                 "Password Changed!",
                 style: AppTextStyles.h1,
@@ -35,7 +35,6 @@ class SuccessScreen extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-             
               Text(
                 "Your password has been changed successfully.",
                 style: AppTextStyles.bodyMedium,
@@ -44,7 +43,6 @@ class SuccessScreen extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-            
               MainButton(
                 text: "Back to Login",
                 onPressed: () {

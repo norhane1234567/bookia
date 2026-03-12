@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:bookia/core/constants/app_images.dart';
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
+import 'package:bookia/core/services/local/shared_pref.dart';
+
 import 'welcome_screen.dart';
+import 'package:bookia/features/home/presentation/page/home_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -20,12 +24,29 @@ class _FirstScreenState extends State<FirstScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const WelcomeScreen(),
-        ),
-      );
+
+      String? token = SharedPref.getToken();
+
+      if (token != null) {
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+
+      } else {
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WelcomeScreen(),
+          ),
+        );
+
+      }
+
     });
   }
 
@@ -49,6 +70,7 @@ class _FirstScreenState extends State<FirstScreen> {
               "Order Your Book Now!",
               style: AppTextStyles.bodyMedium,
             ),
+
           ],
         ),
       ),

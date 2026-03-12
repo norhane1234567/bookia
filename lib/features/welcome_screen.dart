@@ -17,7 +17,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         children: [
 
-          /// Background Image
+         
           SizedBox(
             height: double.infinity,
             width: double.infinity,
@@ -27,12 +27,11 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
 
-          /// Light Overlay
+          
           Container(
             color: AppColors.white.withOpacity(0.55),
           ),
 
-          /// Content
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -41,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 120),
 
-                  /// BIG Logo
+                 
                   Center(
                     child: SvgPicture.asset(
                       AppImages.logo,
@@ -58,7 +57,6 @@ class WelcomeScreen extends StatelessWidget {
 
                   const Spacer(),
 
-                  /// Login Button
                   MainButton(
                     text: "Login",
                     onPressed: () {
@@ -73,7 +71,6 @@ class WelcomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 25),
 
-                  /// Register Button
                   MainButton(
                     text: "Register",
                     onPressed: () {

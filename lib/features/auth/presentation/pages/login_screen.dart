@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:bookia/core/styles/colors.dart';
 import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/utils/validators.dart';
+import 'package:bookia/core/services/local/shared_pref.dart';
+
 import 'package:bookia/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:bookia/features/auth/data/repo/auth_repo.dart';
 import 'package:bookia/features/auth/presentation/pages/forgot_password_screen.dart';
+
+import 'package:bookia/features/home/presentation/page/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,8 +55,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (result["status"] == true || result["status"] == 200) {
 
+        String token = result["data"]["token"];
+
+      
+        await SharedPref.setToken(token);
+
+     
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Login Successful")),
+        );
+
+        
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
         );
 
       } else {
@@ -95,7 +114,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 20),
 
-                  
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.greyBorder),
@@ -109,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 40),
 
-               
                   Text(
                     "Welcome back! Glad\nto see you, Again!",
                     style: AppTextStyles.h1.copyWith(height: 1.3),
@@ -117,7 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 40),
 
-                
                   AuthTextField(
                     hint: "Enter your email",
                     controller: emailController,
@@ -127,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 20),
 
-                 
                   AuthTextField(
                     hint: "Enter your password",
                     controller: passwordController,
@@ -143,7 +158,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 10),
 
-                
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -166,7 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 20),
 
-                 
                   SizedBox(
                     width: double.infinity,
                     height: 60,
@@ -190,7 +203,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 30),
 
-                  
                   Row(
                     children: [
                       Expanded(child: Divider(color: AppColors.greyBorder)),
@@ -218,7 +230,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   const SizedBox(height: 40),
 
-                
                   Center(
                     child: RichText(
                       text: TextSpan(

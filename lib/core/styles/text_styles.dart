@@ -4,7 +4,7 @@ import 'colors.dart';
 
 class AppTextStyles {
 
-  // Headlines
+ 
   static TextStyle h1 = TextStyle(
     fontSize: 32,
     fontFamily: AppFonts.dmSerifDisplay,
@@ -17,7 +17,7 @@ class AppTextStyles {
     color: AppColors.darkText,
   );
 
-  // Body Text
+  
   static TextStyle bodyLarge = TextStyle(
     fontSize: 18,
     fontFamily: AppFonts.dmSerifDisplay,
@@ -30,7 +30,7 @@ class AppTextStyles {
     color: AppColors.greyText,
   );
 
-  // Buttons
+
   static TextStyle button = TextStyle(
     fontSize: 18,
     fontFamily: AppFonts.dmSerifDisplay,

@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:bookia/core/services/local/shared_pref.dart';
 
 class AuthRepo {
 
-  
   Future<Map<String, dynamic>> register(
       String name,
       String email,
@@ -50,10 +50,17 @@ class AuthRepo {
     print("LOGIN RESPONSE:");
     print(response.body);
 
-    return jsonDecode(response.body);
+    var data = jsonDecode(response.body);
+
+  
+    if (data["data"] != null && data["data"]["token"] != null) {
+      await SharedPref.setToken(data["data"]["token"]);
+    }
+
+    return data;
   }
 
- 
+
   Future<Map<String, dynamic>> forgotPassword(String email) async {
 
     var response = await http.post(
@@ -73,7 +80,7 @@ class AuthRepo {
     return jsonDecode(response.body);
   }
 
- 
+
   Future<Map<String, dynamic>> verifyOtp(
       String email,
       String otp) async {
@@ -96,7 +103,7 @@ class AuthRepo {
     return jsonDecode(response.body);
   }
 
-  
+
   Future<Map<String, dynamic>> resetPassword(
       String email,
       String password,

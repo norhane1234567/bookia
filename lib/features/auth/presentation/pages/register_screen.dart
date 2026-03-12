@@ -4,6 +4,7 @@ import 'package:bookia/core/styles/text_styles.dart';
 import 'package:bookia/core/utils/validators.dart';
 import 'package:bookia/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:bookia/features/auth/data/repo/auth_repo.dart';
+import 'package:bookia/features/auth/presentation/pages/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -54,19 +55,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       print(result);
 
-      String message = "Something went wrong";
+      if (result["status"] == true || result["status"] == 200) {
 
-      if (result["message"] != null) {
-        message = result["message"].toString();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Register Successful"),
+          ),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+
+      } else {
+
+        String message = result["message"] ?? "Register failed";
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message.toString()),
+          ),
+        );
       }
-
-      if (result["errors"] != null) {
-        message = result["errors"].toString();
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
 
     } catch (e) {
 
@@ -91,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
-        child: SingleChildScrollView(   // FIX OVERFLOW
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             child: Form(
@@ -102,7 +115,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 20),
 
-                  
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.greyBorder),
@@ -116,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 40),
 
-                 
                   Text(
                     "Hello! Register to get\nstarted",
                     style: AppTextStyles.h1.copyWith(height: 1.3),
@@ -124,7 +135,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 40),
 
-                 
                   AuthTextField(
                     hint: "Username",
                     controller: usernameController,
@@ -133,7 +143,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 20),
 
-                 
                   AuthTextField(
                     hint: "Email",
                     controller: emailController,
@@ -158,7 +167,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 20),
 
-                 
                   AuthTextField(
                     hint: "Confirm password",
                     controller: confirmController,
@@ -178,7 +186,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 30),
 
-                  
                   SizedBox(
                     width: double.infinity,
                     height: 60,
@@ -204,20 +211,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   const SizedBox(height: 40),
 
-                 
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: "Already have an account? ",
-                        style: AppTextStyles.bodyLarge,
-                        children: [
-                          TextSpan(
-                            text: "Login Now",
-                            style: AppTextStyles.bodyLarge.copyWith(
-                              color: AppColors.primary,
-                            ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
                           ),
-                        ],
+                        );
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Already have an account? ",
+                          style: AppTextStyles.bodyLarge,
+                          children: [
+                            TextSpan(
+                              text: "Login Now",
+                              style: AppTextStyles.bodyLarge.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
